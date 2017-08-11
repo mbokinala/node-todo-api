@@ -9,5 +9,6 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (error, db) => {
 
 	db.collection('Todos').find().toArray();
 
+	// Close the connection to the DB
 	db.close();
 });
