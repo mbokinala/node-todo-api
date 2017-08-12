@@ -12,7 +12,7 @@ const port = process.env.PORT || 3000
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-	
+
 });
 
 app.post('/todos', (req, res) => {
@@ -51,6 +51,13 @@ app.get('/todos/:id', (req, res) => {
   }).catch((e) => {
     res.status(400).send();
   });
+});
+
+app.delete('/todos/:id', (request, response) => {
+	var id = req.params.id;
+	Todo.findByIdAndRemove(id).then((todo) => {
+		response.status(201).send(todo);
+	}).catch((err) => response.status(404).send());
 });
 
 app.listen(port, () => {
