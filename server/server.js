@@ -17,20 +17,6 @@ app.get('/', (req, res) => {
 
 });
 
-app.post('/todos', (req, res) => {
-  var todo = new Todo({
-    text: req.body.text,
-    completed: false,
-    completedAt: null
-  });
-
-  todo.save().then((doc) => {
-    res.status(201).send(doc);
-  }, (e) => {
-    res.status(400).send(e);
-  });
-});
-
 app.get('/todos', (req, res) => {
   Todo.find().then((todos) => {
     res.send({todos});
@@ -99,6 +85,34 @@ app.patch('/todos/:id', (req, res) =>{
   }).catch((e) => {
     console.log(e);
     res.status(400).send();
+  });
+});
+
+app.post('/todos', (req, res) => {
+  var todo = new Todo({
+    text: req.body.text,
+    completed: false,
+    completedAt: null
+  });
+
+  todo.save().then((doc) => {
+    res.status(201).send(doc);
+  }, (e) => {
+    res.status(400).send(e);
+  });
+});
+
+
+app.post('/users', (req, res) => {
+  var body = _.pick(req.body, ['email', 'password']);
+  var user = new User(body);
+
+  user.save().then(() => {
+    return user.generateAuthToken();
+  }).then((token) => {
+    res.header('x-auth', token).status(201).send(user);
+  }).catch((err) => {
+    res.status(400).send(err);
   });
 });
 
