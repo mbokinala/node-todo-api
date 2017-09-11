@@ -15,7 +15,7 @@ const port = process.env.PORT;
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-
+	res.send('<h3>Welcome to Manav\'s node REST api. A documentation will be available soon. Until then, please <a href="mailto:manav.bokinala@gmail.com?Subject=Question%20about%20todo%20REST%20api&Body=Hello%2C%0A%0AThis%20is%20_________.%20I%20am%20emailing%20about%20a%20question%20regarding%20your%20node%20REST%20api.%20Here%20is%20my%20question%3A%20_______________________________________________.%20Please%20email%20me%20at%20______________@__________._____%20as%20soon%20as%20you%20can">email the developer</a> if you have any questions</h3>')
 });
 
 app.get('/todos', (req, res) => {
